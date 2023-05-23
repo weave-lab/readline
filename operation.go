@@ -279,25 +279,25 @@ func (o *Operation) ioloop() {
 				o.t.Bell()
 			}
 		case CharDelete:
-			if o.buf.Len() > 0 || !o.IsNormalMode() {
-				o.t.KickRead()
-				if !o.buf.Delete() {
-					o.t.Bell()
-				}
-				break
+			//if o.buf.Len() > 0 || !o.IsNormalMode() {
+			o.t.KickRead()
+			if !o.buf.Delete() {
+				o.t.Bell()
 			}
+			//	break
+			//}
 
 			// treat as EOF
-			if !o.GetConfig().UniqueEditLine {
-				o.buf.WriteString(o.GetConfig().EOFPrompt + "\n")
-			}
-			o.buf.Reset()
-			isUpdateHistory = false
-			o.history.Revert()
-			o.errchan <- io.EOF
-			if o.GetConfig().UniqueEditLine {
-				o.buf.Clean()
-			}
+			//if !o.GetConfig().UniqueEditLine {
+			//	o.buf.WriteString(o.GetConfig().EOFPrompt + "\n")
+			//}
+			//o.buf.Reset()
+			//isUpdateHistory = false
+			//o.history.Revert()
+			//o.errchan <- io.EOF
+			//if o.GetConfig().UniqueEditLine {
+			//	o.buf.Clean()
+			//}
 		case CharInterrupt:
 			if o.IsSearchMode() {
 				o.t.KickRead()
